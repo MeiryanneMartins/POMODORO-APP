@@ -1,12 +1,15 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React from 'react';
 import { useInterval } from '../hooks/use-interval';
-import { Button } from './button';
-import { Timer } from './timer';
-import { secondsToTime } from '../utils/seconds-to-time';
 
 interface Props {
-  pomodoroTime: number;
-  shortRestTime: number;
-  longRestTime: number;
-  cycles: number;
+  defaultPomodoroTime: number;
+}
+
+export function PomodoroTimer(props: Props): JSX.Element {
+  const [mainTime, setMainTime] = React.useState(props.defaultPomodoroTime);
+
+  useInterval(() => {
+    setMainTime(mainTime - 1);
+  }, 1000);
+  return <div>Tempo restante{mainTime}!</div>;
 }
